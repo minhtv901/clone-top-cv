@@ -67,7 +67,7 @@ function openAuth(mode="login") {
   const modal = document.getElementById("auth-modal");
   modal.querySelectorAll(".auth-tab").forEach(b => b.classList.toggle("active", b.dataset.authMode === mode));
   modal.querySelectorAll(".register-only").forEach(x => x.classList.toggle("hidden", mode !== "register"));
-  modal.querySelector("#auth-title").textContent = mode === "login" ? "Chào mừng trở lại" : "Tạo tài khoản JobFlow";
+  modal.querySelector("#auth-title").textContent = mode === "login" ? "Chào mừng trở lại" : "Tạo tài khoản MoonWork";
   modal.querySelector("#auth-subtitle").textContent = mode === "login"
     ? "Chọn vai trò để vào đúng khu vực của bạn."
     : "Bắt đầu với vai trò phù hợp nhu cầu của bạn.";
@@ -124,80 +124,322 @@ function jobCard(job) {
 function renderHome() {
   const jobs = getJobs().slice(0, 4);
   return `
-  <section class="hero">
+  <section class="hero moon-hero">
+    <div class="moon-stars" aria-hidden="true">
+      <i style="--x:7%;--y:18%;--s:2px;--d:0s"></i>
+      <i style="--x:17%;--y:70%;--s:3px;--d:1.8s"></i>
+      <i style="--x:29%;--y:12%;--s:2px;--d:.8s"></i>
+      <i style="--x:44%;--y:79%;--s:2px;--d:2.4s"></i>
+      <i style="--x:58%;--y:15%;--s:3px;--d:1.2s"></i>
+      <i style="--x:68%;--y:66%;--s:2px;--d:3s"></i>
+      <i style="--x:79%;--y:10%;--s:2px;--d:2.1s"></i>
+      <i style="--x:91%;--y:30%;--s:3px;--d:.4s"></i>
+      <i style="--x:95%;--y:76%;--s:2px;--d:1.5s"></i>
+      <i style="--x:52%;--y:48%;--s:2px;--d:3.2s"></i>
+    </div>
+
     <div class="container hero-grid">
       <div class="hero-copy">
-        <div class="eyebrow">NỀN TẢNG TUYỂN DỤNG THẾ HỆ MỚI</div>
-        <h1>Tìm công việc <span>phù hợp</span><br/>với bạn nhanh hơn.</h1>
-        <p>Khám phá cơ hội nghề nghiệp, tạo CV đẹp và kết nối trực tiếp với nhà tuyển dụng chỉ trong vài bước.</p>
-        <div class="search-hero">
+        <div class="eyebrow moon-eyebrow"><span>✦</span> MOONWORK — TÌM ĐÚNG CÔNG VIỆC</div>
+        <h1>Chạm tới công việc<br/><span>xứng đáng với bạn.</span></h1>
+        <p>Khám phá cơ hội mới, tạo CV đẹp và kết nối trực tiếp với nhà tuyển dụng trong một không gian nhẹ nhàng, trực quan.</p>
+
+        <div class="search-hero moon-search">
           <div class="input-icon"><span>⌕</span><input id="home-job-query" placeholder="Vị trí, kỹ năng hoặc công ty..." /></div>
           <div class="input-icon location"><span>⌖</span><input id="home-location-query" placeholder="Địa điểm" /></div>
-          <button class="btn btn-primary" id="home-search-btn">Tìm việc ngay</button>
+          <button class="btn btn-primary" id="home-search-btn">Tìm việc</button>
         </div>
-        <div class="popular-search">
-          <span>Phổ biến:</span>
+
+        <div class="popular-search moon-popular">
+          <span>Đang được tìm:</span>
           <button data-search-key="Unity">Unity</button>
           <button data-search-key="Frontend">Frontend</button>
           <button data-search-key="UI/UX">UI/UX</button>
           <button data-search-key="Marketing">Marketing</button>
         </div>
-        <div class="hero-stats">
-          <div><b>1,200+</b><span>Việc làm mới</span></div>
+
+        <div class="hero-stats moon-stats">
+          <div><b>1.2K+</b><span>Việc làm mới</span></div>
           <div><b>650+</b><span>Doanh nghiệp</span></div>
-          <div><b>8,500+</b><span>Ứng viên</span></div>
+          <div><b>8.5K+</b><span>Ứng viên</span></div>
         </div>
       </div>
-      <div class="hero-art">
-        <div class="art-orb orb-1"></div>
-        <div class="art-orb orb-2"></div>
-        <div class="candidate-card floating">
-          <div class="avatar-lg">MA</div>
-          <div><b>Minh Anh</b><span>Unity Developer</span></div>
-          <div class="match-score">92%</div>
+
+      <div class="hero-art moon-art poetic-moon-art" aria-label="Một cậu bé ngồi trên vầng trăng lưỡi liềm và câu một cơ hội việc làm">
+        <div class="poetic-sky-glow"></div>
+        <div class="poetic-cloud cloud-one"></div>
+        <div class="poetic-cloud cloud-two"></div>
+
+        <div class="poetic-crescent">
+          <div class="moon-texture moon-texture-a"></div>
+          <div class="moon-texture moon-texture-b"></div>
+          <div class="moon-texture moon-texture-c"></div>
         </div>
-        <div class="hero-panel">
-          <div class="hero-panel-top">
-            <div><span class="mini-label">VIỆC LÀM PHÙ HỢP</span><h3>Unity Game Developer</h3></div>
-            <span class="mini-status">Đang tuyển</span>
+
+        <div class="poetic-child">
+          <svg class="poetic-boy-svg" viewBox="0 0 240 180" aria-hidden="true">
+            <defs>
+              <linearGradient id="boySkin2" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#FFF8F4"/>
+                <stop offset="70%" stop-color="#F1D9CF"/>
+                <stop offset="100%" stop-color="#DDBCB1"/>
+              </linearGradient>
+
+              <linearGradient id="boyWhite2" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#FFFFFF"/>
+                <stop offset="62%" stop-color="#EDF2FF"/>
+                <stop offset="100%" stop-color="#CCD7F5"/>
+              </linearGradient>
+
+              <linearGradient id="boyWhiteShadow2" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#F2F6FF"/>
+                <stop offset="100%" stop-color="#B9C8F0"/>
+              </linearGradient>
+
+              <linearGradient id="boyHair2" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#131A36"/>
+                <stop offset="60%" stop-color="#222B57"/>
+                <stop offset="100%" stop-color="#38437C"/>
+              </linearGradient>
+
+              <filter id="boySoftGlow2" x="-35%" y="-35%" width="170%" height="170%">
+                <feGaussianBlur stdDeviation="1.8" result="b"/>
+                <feMerge>
+                  <feMergeNode in="b"/>
+                  <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+              </filter>
+            </defs>
+
+            <!-- soft contact shadow: makes him visibly sit on the moon -->
+            <ellipse cx="100" cy="136" rx="48" ry="10"
+                     fill="rgba(63,79,154,.12)"
+                     transform="rotate(-7 100 136)"/>
+
+            <!-- BACK LEG: bent naturally, cooler because it is farther away -->
+            <path d="M102 104
+                     C114 111 121 121 119 132
+                     C117 143 108 150 103 157"
+                  fill="none"
+                  stroke="url(#boyWhiteShadow2)"
+                  stroke-width="12"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"/>
+
+            <!-- back shoe -->
+            <path d="M91 156
+                     C97 153 107 154 113 158
+                     C115 161 112 165 107 166
+                     C101 167 94 165 89 162
+                     C88 160 89 158 91 156 Z"
+                  fill="#1C2445"/>
+
+            <!-- FRONT LEG: thigh forward, shin drops down -->
+            <path d="M111 105
+                     C126 114 132 124 131 136
+                     C130 146 135 153 142 159"
+                  fill="none"
+                  stroke="url(#boySkin2)"
+                  stroke-width="12"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"/>
+
+            <!-- front shoe -->
+            <path d="M136 157
+                     C143 156 153 159 158 163
+                     C159 166 156 169 150 169
+                     C144 169 138 167 134 164
+                     C133 161 134 159 136 157 Z"
+                  fill="#192141"/>
+
+            <!-- shorts / seated hip -->
+            <path d="M82 92
+                     C92 87 107 88 119 96
+                     C121 103 118 111 112 116
+                     C99 119 86 116 77 109
+                     C76 103 78 97 82 92 Z"
+                  fill="url(#boyWhite2)"/>
+
+            <!-- torso, intentionally leaning backward -->
+            <path d="M67 58
+                     C77 50 91 50 102 57
+                     C111 66 116 79 116 91
+                     C110 99 99 104 86 103
+                     C75 100 66 94 61 86
+                     C60 75 62 65 67 58 Z"
+                  fill="url(#boyWhite2)"
+                  filter="url(#boySoftGlow2)"/>
+
+            <!-- subtle shirt lower shadow -->
+            <path d="M66 89
+                     C79 96 97 99 113 92
+                     C111 99 104 104 91 105
+                     C80 104 71 99 66 94 Z"
+                  fill="rgba(143,161,220,.10)"/>
+
+            <!-- rear arm: both hands now go toward the fishing rod -->
+            <path d="M91 67
+                     C103 76 115 86 132 91"
+                  fill="none"
+                  stroke="#EACFC7"
+                  stroke-width="8"
+                  stroke-linecap="round"/>
+
+            <!-- front arm -->
+            <path d="M103 65
+                     C116 74 128 84 145 90"
+                  fill="none"
+                  stroke="url(#boySkin2)"
+                  stroke-width="9"
+                  stroke-linecap="round"/>
+
+            <!-- hands -->
+            <circle cx="133" cy="91" r="4.6" fill="#E7C9BF"/>
+            <circle cx="146" cy="90" r="5.1" fill="#F0D7CE"/>
+
+            <!-- neck -->
+            <path d="M76 54 L77 66
+                     C81 69 87 68 90 64
+                     L88 52 Z"
+                  fill="url(#boySkin2)"/>
+
+            <!-- face in right-facing profile, smaller and rounder -->
+            <path d="M48 35
+                     C50 19 65 10 81 13
+                     C94 15 104 25 104 38
+                     C104 43 108 45 106 49
+                     C104 53 99 54 95 54
+                     C90 60 80 62 70 59
+                     C56 56 47 48 48 35 Z"
+                  fill="url(#boySkin2)"
+                  filter="url(#boySoftGlow2)"/>
+
+            <!-- round dark hair like the reference image -->
+            <path d="M47 35
+                     C45 24 50 14 60 8
+                     C69 2 82 3 91 8
+                     C99 12 104 19 105 28
+                     C97 23 89 22 83 25
+                     C77 28 74 34 75 41
+                     C66 42 56 40 49 36 Z"
+                  fill="url(#boyHair2)"/>
+
+            <!-- soft back hair volume -->
+            <path d="M47 31
+                     C43 38 46 49 54 54
+                     C61 59 70 59 76 56
+                     C67 52 63 46 64 39
+                     C57 39 51 36 47 31 Z"
+                  fill="#202957"
+                  opacity=".95"/>
+
+            <!-- tiny poetic cowlick -->
+            <path d="M58 10
+                     C51 5 56 -1 63 2
+                     C66 4 65 7 62 8"
+                  fill="none"
+                  stroke="#1A234A"
+                  stroke-width="4"
+                  stroke-linecap="round"/>
+
+            <!-- ear -->
+            <circle cx="75" cy="39" r="5.2" fill="#EED4CB"/>
+
+            <!-- eye -->
+            <circle cx="97" cy="35" r="1.7" fill="#4E536C"/>
+
+            <!-- tiny nose -->
+            <path d="M102 39
+                     C107 40 108 43 103 44"
+                  fill="none"
+                  stroke="#C99E91"
+                  stroke-width="1.4"
+                  stroke-linecap="round"/>
+
+            <!-- tiny mouth -->
+            <path d="M99 48 C101 49 103 49 104 48"
+                  fill="none"
+                  stroke="#BD928B"
+                  stroke-width="1"
+                  stroke-linecap="round"
+                  opacity=".75"/>
+
+            <!-- subtle cheek -->
+            <ellipse cx="94" cy="44" rx="5" ry="2.5"
+                     fill="#E9AFA7"
+                     opacity=".14"/>
+
+            <!-- shirt seam -->
+            <path d="M69 67
+                     C80 72 94 72 106 67"
+                  fill="none"
+                  stroke="rgba(139,156,218,.18)"
+                  stroke-width="1.5"
+                  stroke-linecap="round"/>
+
+            <!-- fishing rod: longer and more elegant, angled upward like reference -->
+            <path d="M143 90
+                     L235 58"
+                  fill="none"
+                  stroke="#C7D3FF"
+                  stroke-width="1.65"
+                  stroke-linecap="round"/>
+
+            <!-- rod highlight -->
+            <path d="M150 87 L231 59"
+                  fill="none"
+                  stroke="rgba(255,255,255,.38)"
+                  stroke-width=".55"
+                  stroke-linecap="round"/>
+          </svg>
+
+          <div class="poetic-line-wrap">
+            <div class="poetic-line"></div>
+            <div class="poetic-job-tag">
+              <small>MOONWORK</small>
+              <b>Dream Job</b>
+              <span>Unity Developer</span>
+            </div>
           </div>
-          <div class="company-line"><span class="mini-logo">NG</span><div><b>Nova Game Studio</b><span>Hà Nội • Full-time</span></div></div>
-          <div class="salary-line">15 - 25 triệu / tháng</div>
-          <div class="fake-chart">
-            <i style="height:25%"></i><i style="height:45%"></i><i style="height:36%"></i><i style="height:72%"></i><i style="height:58%"></i><i style="height:88%"></i><i style="height:78%"></i>
-          </div>
-          <button class="btn btn-primary btn-full" data-open-job="1">Xem công việc</button>
         </div>
-        <div class="notify-card floating-2"><span>✓</span><div><b>Ứng tuyển thành công</b><small>CV đã gửi đến nhà tuyển dụng</small></div></div>
+      </div>
+
+      <div class="poetic-star star-a"></div>
+        <div class="poetic-star star-b"></div>
+        <div class="poetic-star star-c"></div>
+        <div class="poetic-star star-d"></div>
       </div>
     </div>
+  </div>
+  <div class="hero-bottom-fade"></div>
   </section>
 
-  <section class="section">
+  <section class="section moon-section">
     <div class="container">
       <div class="section-head">
-        <div><span class="eyebrow">CƠ HỘI NỔI BẬT</span><h2>Việc làm tốt dành cho bạn</h2></div>
-        <button class="text-arrow" data-route="jobs">Xem tất cả →</button>
+        <div><span class="eyebrow">CƠ HỘI NỔI BẬT</span><h2>Việc làm đáng để bạn ngắm tới</h2><p class="section-subtitle">Một vài vị trí nổi bật được chọn từ MoonWork.</p></div>
+        <button class="text-arrow" data-route="jobs">Khám phá tất cả →</button>
       </div>
       <div class="job-grid">${jobs.map(jobCard).join("")}</div>
     </div>
   </section>
 
-  <section class="section alt">
+  <section class="section alt moon-role-section">
     <div class="container role-feature-grid">
-      <div class="feature-card candidate-feature">
-        <div class="feature-icon">👤</div>
+      <div class="feature-card candidate-feature moon-feature-dark">
+        <div class="feature-orbit"></div>
+        <div class="feature-icon">☾</div>
         <span class="eyebrow">DÀNH CHO ỨNG VIÊN</span>
-        <h2>Từ CV đến công việc mơ ước.</h2>
+        <h2>Mỗi CV là một bước gần hơn tới công việc phù hợp.</h2>
         <p>Tạo CV trực quan, tìm việc theo kỹ năng và theo dõi trạng thái hồ sơ ngay trong một nơi.</p>
         <div class="feature-list"><span>✓ CV Builder trực quan</span><span>✓ Ứng tuyển chỉ vài giây</span><span>✓ Chat với nhà tuyển dụng</span></div>
-        <button class="btn btn-dark" data-route="cv">Tạo CV ngay</button>
+        <button class="btn btn-moonlight" data-route="cv">Tạo CV ngay</button>
       </div>
-      <div class="feature-card employer-feature">
-        <div class="feature-icon">🏢</div>
+      <div class="feature-card employer-feature moon-feature-light">
+        <div class="feature-icon">✦</div>
         <span class="eyebrow">DÀNH CHO NHÀ TUYỂN DỤNG</span>
-        <h2>Đăng tin và quản lý ứng viên dễ dàng.</h2>
-        <p>Theo dõi ứng viên, xem hồ sơ, lọc nhanh và quyết định chấp nhận hoặc từ chối ngay trên dashboard.</p>
+        <h2>Tìm đúng người, không cần lạc giữa hàng trăm hồ sơ.</h2>
+        <p>Đăng tin, xem hồ sơ, lọc ứng viên và quyết định chấp nhận hoặc từ chối trên cùng một dashboard.</p>
         <div class="feature-list"><span>✓ Đăng & quản lý tin</span><span>✓ Xem hồ sơ ứng viên</span><span>✓ Accept / Reject nhanh</span></div>
         <button class="btn btn-primary" data-route="employer-dashboard">Khu vực tuyển dụng</button>
       </div>
