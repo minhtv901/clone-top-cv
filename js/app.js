@@ -87,7 +87,8 @@ function updateNavigation() {
   if (!state.loggedIn) {
     actions.innerHTML = `<button class="btn btn-ghost" id="open-login">Đăng nhập</button><button class="btn btn-primary" id="open-register">Đăng ký</button>`;
   } else {
-    const label = state.role === "candidate" ? "Nguyễn Văn A" : "Nova Game Studio";
+    const current = getCurrentUser();
+    const label = current ? current.name : (state.role === "candidate" ? "Ứng viên" : "Nhà tuyển dụng");
     const route = state.role === "candidate" ? "candidate-dashboard" : "employer-dashboard";
     actions.innerHTML = `
       <button class="user-chip" data-route="${route}">
@@ -541,7 +542,10 @@ function renderManageJobs() {
 }
 
 function renderApplicants() {
-  const candidates = getCandidates().filter(c => {
+  const applications = getApplications();
+  const currentJobs = getJobs().filter(j=>!j.employerId || j.employerId===getCurrentUser()?.id);
+  const allowedCandidateIds = applications.filter(a=>currentJobs.some(j=>j.id===a.jobId)).map(a=>a.candidateId);
+  const candidates = getCandidates().filter(c => (!allowedCandidateIds.length || allowedCandidateIds.includes(c.id)) && true).filter(c => {
     const q = state.candidateQuery.toLowerCase();
     return !q || `${c.name} ${c.title} ${c.skills.join(" ")} ${c.location}`.toLowerCase().includes(q);
   });
@@ -684,8 +688,33 @@ function showApply(jobId) {
   document.getElementById("apply-form").onsubmit = e => {
     e.preventDefault();
     const apps = getApplications();
-    if (!apps.some(a=>a.jobId===job.id)) apps.unshift({id:Date.now(),jobId:job.id,candidateName:"Nguyễn Văn A",date:"31/08/2026",status:"pending"});
+    const user = getCurrentUser();
+    const candidates = getCandidates();
+    const candidate = candidates.find(c=>c.userId===user?.id) || {
+      id:user?.id || Date.now(),
+      userId:user?.id,
+      name:user?.name || "Ứng viên mới",
+      title:"Ứng viên đang cập nhật CV",
+      skills:[],
+      email:user?.email || "",
+      cv:"CV demo.pdf"
+    };
+    const application = {
+      id:Date.now(),
+      jobId:job.id,
+      employerId:job.employerId || null,
+      candidateId:candidate.id,
+      candidateName:candidate.name,
+      candidateEmail:candidate.email,
+      candidateCv:candidate.cv,
+      date:new Date().toLocaleDateString("vi-VN"),
+      status:"pending"
+    };
+    apps.unshift(application);
     setApplications(apps);
+    const updatedJobs=getJobs();
+    const jIndex=updatedJobs.findIndex(j=>j.id===job.id);
+    if(jIndex>=0){updatedJobs[jIndex].applicantsList=updatedJobs[jIndex].applicantsList||[]; updatedJobs[jIndex].applicantsList.push(application.id); setJobs(updatedJobs);}
     closeModal("apply-modal"); toast("Ứng tuyển thành công! CV đã được gửi.");
   };
 }
@@ -742,11 +771,12 @@ function bindDynamicEvents() {
   if(postForm) postForm.onsubmit=e=>{
     e.preventDefault();
     const fd=new FormData(postForm); const jobs=getJobs();
+    const user=getCurrentUser();
     const req=(fd.get("requirements")||"").split(";").map(x=>x.trim()).filter(Boolean);
     const ben=(fd.get("benefits")||"").split(";").map(x=>x.trim()).filter(Boolean);
     const skills=(fd.get("skills")||"").split(",").map(x=>x.trim()).filter(Boolean);
     jobs.unshift({
-      id:Date.now(), title:fd.get("title"), company:"Nova Game Studio", logo:"NG", location:fd.get("location"),
+      id:Date.now(), employerId:user?.id || null, title:fd.get("title"), company:user?.name || "Công ty mới", logo:(user?.name || "CT").slice(0,2).toUpperCase(), location:fd.get("location"),
       salary:fd.get("salary"), type:fd.get("type"), experience:fd.get("experience"), category:"Tuyển dụng mới",
       skills:skills.length?skills:["Kỹ năng mới"], hot:true, applicants:0, posted:"Vừa xong",
       description:fd.get("description")||"Mô tả công việc đang được cập nhật.",
