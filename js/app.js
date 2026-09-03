@@ -28,6 +28,15 @@ const getMessages = () => JSON.parse(localStorage.getItem("jobflow_messages") ||
 const setMessages = (v) => localStorage.setItem("jobflow_messages", JSON.stringify(v));
 const getApplications = () => JSON.parse(localStorage.getItem("jobflow_applications") || "[]");
 const setApplications = (v) => localStorage.setItem("jobflow_applications", JSON.stringify(v));
+
+// Lấy đúng các job thuộc về một công ty / nhà tuyển dụng
+function getCompanyJobs(companyId, companyName) {
+  return getJobs().filter(j =>
+    (companyId && String(j.employerId) === String(companyId)) ||
+    (companyName && j.company === companyName)
+  );
+}
+
 // Demo employer account - Bright Media Vietnam
 function seedEmployerAccount(){
   const users = getUsers();
@@ -95,6 +104,14 @@ function setRoute(route) {
 function openAuth(mode="login") {
   state.authMode = mode;
   const modal = document.getElementById("auth-modal");
+  if (modal) {
+    modal.style.overflowY = "auto";
+    const box = modal.querySelector(".modal-content, .auth-box, .modal-body");
+    if (box) {
+      box.style.maxHeight = "90vh";
+      box.style.overflowY = "auto";
+    }
+  }
   modal.querySelectorAll(".auth-tab").forEach(b => b.classList.toggle("active", b.dataset.authMode === mode));
   modal.querySelectorAll(".register-only").forEach(x => x.classList.toggle("hidden", mode !== "register"));
   modal.querySelector("#auth-title").textContent = mode === "login" ? "Chào mừng trở lại" : "Tạo tài khoản MoonWork";
@@ -503,7 +520,9 @@ function renderProfile() {
 }
 
 function renderEmployerDashboard() {
-  const candidates = getCandidates(); const jobs = getJobs();
+  const candidates = getCandidates();
+  const user = getCurrentUser();
+  const jobs = user ? getCompanyJobs(user.id, user.name) : [];
   return `<section class="dashboard-page"><div class="container dashboard-grid">
     ${employerSidebar("employer-dashboard")}
     <div class="dashboard-content">
@@ -556,7 +575,8 @@ function renderPostJob() {
 }
 
 function renderManageJobs() {
-  const jobs = getJobs();
+  const user = getCurrentUser();
+  const jobs = user ? getCompanyJobs(user.id, user.name) : [];
   return `<section class="dashboard-page"><div class="container dashboard-grid">${employerSidebar("manage-jobs")}
     <div class="dashboard-content">
       <div class="dash-title row-title"><div><span class="eyebrow">JOB MANAGEMENT</span><h1>Quản lý tin tuyển dụng</h1><p>Theo dõi và quản lý các vị trí đang tuyển.</p></div><button class="btn btn-primary" data-route="post-job">＋ Đăng tin mới</button></div>
@@ -638,7 +658,7 @@ function renderCompanyProfile() {
   return `<section class="dashboard-page"><div class="container dashboard-grid">${employerSidebar("company-profile")}
     <div class="dashboard-content"><div class="dash-title"><span class="eyebrow">COMPANY PROFILE</span><h1>Thông tin công ty</h1><p>Thông tin hiển thị trên các tin tuyển dụng.</p></div>
       <div class="profile-card">
-        <div class="company-profile-cover"><div class="company-logo-xl">NG</div></div>
+        <div class="company-profile-cover"><div class="company-logo-xl">BM</div></div>
         <div class="profile-form-grid">
           <div class="form-group full"><label>Tên công ty</label><input value="Bright Media Vietnam"></div>
           <div class="form-group"><label>Email</label><input value="hr@brightmedia.vn"></div>
