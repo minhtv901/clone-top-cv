@@ -914,6 +914,12 @@ function bindDynamicEvents() {
     }
   });
 
+  // Sau khi nạp dữ liệu CV đã lưu, cập nhật lại phần preview
+  // tránh trường hợp My CV hiển thị dữ liệu mặc định dù localStorage đã có dữ liệu mới
+  document.querySelectorAll(".cv-input").forEach(el=>{
+    el.dispatchEvent(new Event("input", { bubbles: true }));
+  });
+
   const saveCv=document.getElementById("save-cv"); 
   if(saveCv) saveCv.onclick=()=>{
     const cv={};
