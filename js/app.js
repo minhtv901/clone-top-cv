@@ -543,17 +543,40 @@ function renderManageJobs() {
 
 function renderApplicants() {
   const applications = getApplications();
-  const currentJobs = getJobs().filter(j=>!j.employerId || j.employerId===getCurrentUser()?.id);
-  const allowedCandidateIds = applications.filter(a=>currentJobs.some(j=>j.id===a.jobId)).map(a=>a.candidateId);
-  const candidates = getCandidates().filter(c => (!allowedCandidateIds.length || allowedCandidateIds.includes(c.id)) && true).filter(c => {
-    const q = state.candidateQuery.toLowerCase();
-    return !q || `${c.name} ${c.title} ${c.skills.join(" ")} ${c.location}`.toLowerCase().includes(q);
+  const user = getCurrentUser();
+  const jobs = getJobs().filter(j => {
+    if (!user) return false;
+    return j.employerId === user.id || j.employerId === String(user.id) || j.company === user.name;
   });
+
+  const jobIds = jobs.map(j => j.id);
+  const myApplications = applications.filter(a => jobIds.includes(a.jobId) || a.employerId === user?.id || a.employerId === String(user?.id));
+
   return `<section class="dashboard-page"><div class="container dashboard-grid">${employerSidebar("applicants")}
     <div class="dashboard-content">
-      <div class="dash-title"><span class="eyebrow">APPLICANTS</span><h1>Ứng viên đã nộp CV</h1><p>Xem hồ sơ, tìm kiếm và xử lý ứng viên.</p></div>
-      <div class="applicant-toolbar"><div class="search-small large">⌕ <input id="candidate-search" value="${esc(state.candidateQuery)}" placeholder="Tìm theo tên, vị trí hoặc kỹ năng..."></div><select><option>Tất cả vị trí</option><option>Unity Game Developer</option><option>Frontend Developer</option></select><select><option>Tất cả trạng thái</option><option>Đang xem xét</option><option>Đã chấp nhận</option><option>Đã từ chối</option></select></div>
-      <div class="candidate-grid">${candidates.map(c=>candidateCard(c)).join("")}</div>
+      <div class="dash-title"><span class="eyebrow">APPLICANTS</span><h1>Ứng viên đã nộp CV</h1><p>Danh sách ứng viên ứng tuyển vào từng vị trí của công ty.</p></div>
+      <div class="candidate-grid">
+      ${myApplications.length ? myApplications.map(a => {
+        const job = jobs.find(j => j.id === a.jobId);
+        return `<article class="candidate-card-full">
+          <div class="candidate-card-top">
+            <div class="avatar-lg">${esc((a.candidateName||"UV").slice(0,2))}</div>
+            <div class="candidate-info">
+              <h3>${esc(a.candidateName)}</h3>
+              <p>Ứng tuyển: ${esc(job?.title || "Tin tuyển dụng")}</p>
+            </div>
+            <span class="match-pill">${esc(a.status)}</span>
+          </div>
+          <div class="candidate-details">
+            <span>✉ ${esc(a.candidateEmail||"")}</span>
+            <span>📅 ${esc(a.date||"")}</span>
+          </div>
+          <div class="candidate-card-bottom">
+            <button class="btn btn-soft btn-sm" data-open-application="${a.id}">Xem CV & hồ sơ</button>
+          </div>
+        </article>`;
+      }).join("") : `<div class="empty-state">Chưa có ứng viên nào ứng tuyển vào các tin tuyển dụng của bạn.</div>`}
+      </div>
     </div></div></section>`;
 }
 
@@ -565,6 +588,24 @@ function candidateCard(c) {
     <div class="tag-row">${c.skills.map(s=>`<span class="tag">${esc(s)}</span>`).join("")}</div>
     <div class="candidate-card-bottom"><span class="status ${cls}">${txt}</span><button class="btn btn-soft btn-sm" data-open-candidate="${c.id}">Xem hồ sơ</button></div>
   </article>`;
+}
+
+function showApplication(id){
+ const a=getApplications().find(x=>x.id===Number(id));
+ if(!a) return;
+ const job=getJobs().find(j=>j.id===a.jobId);
+ document.getElementById("candidate-modal-content").innerHTML=`
+ <button class="modal-close" data-close-modal="candidate-modal">×</button>
+ <div class="candidate-profile-head">
+ <div class="avatar-xl">${esc((a.candidateName||"UV").slice(0,2))}</div>
+ <div><span class="eyebrow">APPLICATION</span><h2>${esc(a.candidateName)}</h2><p>${esc(job?.title||"")}</p></div>
+ </div>
+ <div class="candidate-contact-strip"><span>✉ ${esc(a.candidateEmail||"")}</span><span>CV: ${esc(a.candidateCv||"CV demo")}</span></div>
+ <div class="decision-actions">
+ <button class="btn btn-danger-soft" data-reject-application="${a.id}">✕ Từ chối</button>
+ <button class="btn btn-primary" data-accept-application="${a.id}">✓ Chấp nhận</button>
+ </div>`;
+ openModal("candidate-modal"); bindDynamicEvents();
 }
 
 function renderCompanyProfile() {
@@ -702,7 +743,8 @@ function showApply(jobId) {
     const application = {
       id:Date.now(),
       jobId:job.id,
-      employerId:job.employerId || null,
+      employerId:job.employerId || job.ownerId || job.createdBy || null,
+      employerName: job.company || "",
       candidateId:candidate.id,
       candidateName:candidate.name,
       candidateEmail:candidate.email,
@@ -717,6 +759,17 @@ function showApply(jobId) {
     if(jIndex>=0){updatedJobs[jIndex].applicantsList=updatedJobs[jIndex].applicantsList||[]; updatedJobs[jIndex].applicantsList.push(application.id); setJobs(updatedJobs);}
     closeModal("apply-modal"); toast("Ứng tuyển thành công! CV đã được gửi.");
   };
+}
+
+function updateApplicationStatus(id,status){
+ const apps=getApplications();
+ const idx=apps.findIndex(a=>a.id===Number(id));
+ if(idx<0)return;
+ apps[idx].status=status;
+ setApplications(apps);
+ closeModal("candidate-modal");
+ toast(status==="accepted"?"Đã chấp nhận ứng viên.":"Đã từ chối ứng viên.");
+ render();
 }
 
 function updateCandidateStatus(id, status) {
@@ -746,9 +799,14 @@ function scrollChatBottom() {
 function bindDynamicEvents() {
   document.querySelectorAll("[data-route]").forEach(el => el.onclick = (e) => { e.preventDefault(); setRoute(el.dataset.route); });
   document.querySelectorAll("[data-open-job]").forEach(el => el.onclick = (e) => { e.stopPropagation(); showJob(el.dataset.openJob); });
+  document.querySelectorAll("[data-open-application]").forEach(btn=>btn.onclick=()=>showApplication(btn.dataset.openApplication));
+
   document.querySelectorAll("[data-open-candidate]").forEach(el => el.onclick = ()=>showCandidate(el.dataset.openCandidate));
   document.querySelectorAll("[data-close-modal]").forEach(el => el.onclick = ()=>closeModal(el.dataset.closeModal));
   document.querySelectorAll("[data-apply-job]").forEach(el => el.onclick = ()=>showApply(el.dataset.applyJob));
+  document.querySelectorAll("[data-accept-application]").forEach(btn=>btn.onclick=()=>updateApplicationStatus(btn.dataset.acceptApplication,"accepted"));
+  document.querySelectorAll("[data-reject-application]").forEach(btn=>btn.onclick=()=>updateApplicationStatus(btn.dataset.rejectApplication,"rejected"));
+
   document.querySelectorAll("[data-accept-candidate]").forEach(el => el.onclick = ()=>updateCandidateStatus(el.dataset.acceptCandidate,"accepted"));
   document.querySelectorAll("[data-reject-candidate]").forEach(el => el.onclick = ()=>updateCandidateStatus(el.dataset.rejectCandidate,"rejected"));
   document.querySelectorAll("[data-message-candidate]").forEach(el => el.onclick = ()=>{closeModal("candidate-modal"); setRoute("messages");});
