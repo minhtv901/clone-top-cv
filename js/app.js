@@ -364,7 +364,7 @@ function renderCV() {
   <section class="cv-page">
     <div class="cv-toolbar">
       <div class="container cv-toolbar-inner">
-        <div><span class="eyebrow">CV BUILDER</span><h2>CV Game Developer</h2></div>
+        <div><span class="eyebrow">CV BUILDER</span><h2>CV Marketing Specialist</h2></div>
         <div class="toolbar-actions"><button class="btn btn-ghost" id="reset-cv">Làm mới</button><button class="btn btn-primary" id="save-cv">Lưu CV</button></div>
       </div>
     </div>
@@ -373,33 +373,33 @@ function renderCV() {
         <div class="editor-section"><h3>Thông tin cá nhân</h3>
           <div class="form-grid">
             <div class="form-group"><label>Họ tên</label><input class="cv-input" data-cv="name" value="Nguyễn Văn A" /></div>
-            <div class="form-group"><label>Vị trí</label><input class="cv-input" data-cv="title" value="Game Developer" /></div>
+            <div class="form-group"><label>Vị trí</label><input class="cv-input" data-cv="title" value="Marketing Specialist" /></div>
             <div class="form-group"><label>Email</label><input class="cv-input" data-cv="email" value="nguyenvana@gmail.com" /></div>
             <div class="form-group"><label>Số điện thoại</label><input class="cv-input" data-cv="phone" value="0901 234 567" /></div>
             <div class="form-group full"><label>Địa điểm</label><input class="cv-input" data-cv="location" value="Hà Nội, Việt Nam" /></div>
           </div>
         </div>
-        <div class="editor-section"><h3>Giới thiệu</h3><textarea class="cv-input" data-cv="about">Game Developer yêu thích xây dựng gameplay, hệ thống chiến đấu và trải nghiệm người chơi bằng Unity.</textarea></div>
-        <div class="editor-section"><h3>Kỹ năng</h3><input class="cv-input" data-cv="skills" value="Unity, C#, Git, OOP, 2D Game" /><small>Phân cách kỹ năng bằng dấu phẩy.</small></div>
+        <div class="editor-section"><h3>Giới thiệu</h3><textarea class="cv-input" data-cv="about">Marketing Specialist có kinh nghiệm xây dựng chiến dịch truyền thông, quản lý nội dung và tối ưu hiệu quả marketing trên các nền tảng số.</textarea></div>
+        <div class="editor-section"><h3>Kỹ năng</h3><input class="cv-input" data-cv="skills" value="Facebook Ads, Google Ads, SEO, Content Marketing, Social Media" /><small>Phân cách kỹ năng bằng dấu phẩy.</small></div>
         <div class="editor-section"><h3>Kinh nghiệm</h3>
-          <div class="form-group"><label>Công ty</label><input class="cv-input" data-cv="company" value="ABC Game Studio" /></div>
-          <div class="form-group"><label>Vị trí / thời gian</label><input class="cv-input" data-cv="experience" value="Game Developer Intern • 2025 - 2026" /></div>
+          <div class="form-group"><label>Công ty</label><input class="cv-input" data-cv="company" value="Bright Media Vietnam" /></div>
+          <div class="form-group"><label>Vị trí / thời gian</label><input class="cv-input" data-cv="experience" value="Marketing Executive Intern • 2025 - 2026" /></div>
           <div class="form-group"><label>Mô tả</label><textarea class="cv-input" data-cv="experienceDesc">Phát triển gameplay 2D, xử lý bug và phối hợp cùng team design để hoàn thiện các tính năng.</textarea></div>
         </div>
-        <div class="editor-section"><h3>Học vấn</h3><input class="cv-input" data-cv="education" value="FPT Polytechnic • Lập trình Game • 2023 - 2026" /></div>
+        <div class="editor-section"><h3>Học vấn</h3><input class="cv-input" data-cv="education" value="FPT Polytechnic • Marketing Digital • 2023 - 2026" /></div>
       </aside>
       <div class="cv-preview-wrap">
         <div class="preview-note">Xem trước trực tiếp</div>
         <article class="cv-paper" id="cv-preview">
           <header class="cv-head">
             <div class="cv-avatar">NA</div>
-            <div><h1 data-preview="name">Nguyễn Văn A</h1><h2 data-preview="title">Game Developer</h2></div>
+            <div><h1 data-preview="name">Nguyễn Văn A</h1><h2 data-preview="title">Marketing Specialist</h2></div>
           </header>
           <div class="cv-contact"><span>✉ <i data-preview="email">nguyenvana@gmail.com</i></span><span>☎ <i data-preview="phone">0901 234 567</i></span><span>⌖ <i data-preview="location">Hà Nội, Việt Nam</i></span></div>
-          <section><h3>GIỚI THIỆU</h3><p data-preview="about">Game Developer yêu thích xây dựng gameplay, hệ thống chiến đấu và trải nghiệm người chơi bằng Unity.</p></section>
+          <section><h3>GIỚI THIỆU</h3><p data-preview="about">Marketing Specialist có kinh nghiệm xây dựng chiến dịch truyền thông, quản lý nội dung và tối ưu hiệu quả marketing trên các nền tảng số.</p></section>
           <section><h3>KỸ NĂNG</h3><div class="cv-skills" data-preview="skills"></div></section>
-          <section><h3>KINH NGHIỆM</h3><div class="cv-entry"><b data-preview="company">ABC Game Studio</b><span data-preview="experience">Game Developer Intern • 2025 - 2026</span><p data-preview="experienceDesc">Phát triển gameplay 2D, xử lý bug và phối hợp cùng team design để hoàn thiện các tính năng.</p></div></section>
-          <section><h3>HỌC VẤN</h3><div class="cv-entry"><b data-preview="education">FPT Polytechnic • Lập trình Game • 2023 - 2026</b></div></section>
+          <section><h3>KINH NGHIỆM</h3><div class="cv-entry"><b data-preview="company">Bright Media Vietnam</b><span data-preview="experience">Marketing Executive Intern • 2025 - 2026</span><p data-preview="experienceDesc">Hỗ trợ triển khai chiến dịch Digital Marketing, quản lý nội dung social media và phân tích hiệu quả quảng cáo.</p></div></section>
+          <section><h3>HỌC VẤN</h3><div class="cv-entry"><b data-preview="education">FPT Polytechnic • Marketing Digital • 2023 - 2026</b></div></section>
         </article>
       </div>
     </div>
@@ -897,11 +897,22 @@ function bindDynamicEvents() {
   };
 
   const savedCv = JSON.parse(localStorage.getItem("jobflow_cv") || "null");
-  if(savedCv){
-    document.querySelectorAll(".cv-input").forEach(el=>{
-      if(savedCv[el.dataset.cv] !== undefined) el.value=savedCv[el.dataset.cv];
-    });
-  }
+  const currentUser = getCurrentUser();
+  const userCv = currentUser?.cv || {};
+  const profile = currentUser?.profile || {};
+  const data = Object.assign({
+    name: currentUser?.name || undefined,
+    email: currentUser?.email || undefined,
+    location: profile.address || undefined,
+    phone: profile.phone || undefined,
+  }, userCv, savedCv || {});
+
+  document.querySelectorAll(".cv-input").forEach(el=>{
+    const key = el.dataset.cv;
+    if(data[key] !== undefined && data[key] !== null && data[key] !== ""){
+      el.value = data[key];
+    }
+  });
 
   const saveCv=document.getElementById("save-cv"); 
   if(saveCv) saveCv.onclick=()=>{
