@@ -14,6 +14,12 @@ const state = {
   candidateQuery: ""
 };
 
+
+const getUsers = () => JSON.parse(localStorage.getItem("jobflow_users") || "[]");
+const setUsers = (v) => localStorage.setItem("jobflow_users", JSON.stringify(v));
+const getCurrentUser = () => JSON.parse(localStorage.getItem("jobflow_current_user") || "null");
+const setCurrentUser = (v) => localStorage.setItem("jobflow_current_user", JSON.stringify(v));
+
 const getJobs = () => JSON.parse(localStorage.getItem("jobflow_jobs") || "[]");
 const setJobs = (v) => localStorage.setItem("jobflow_jobs", JSON.stringify(v));
 const getCandidates = () => JSON.parse(localStorage.getItem("jobflow_candidates") || "[]");
@@ -767,7 +773,7 @@ document.addEventListener("click", e => {
   if (e.target.id === "open-register") openAuth("register");
   if (e.target.id === "logout-btn") {
     state.loggedIn=false; state.role=null;
-    localStorage.removeItem("jobflow_logged_in"); localStorage.removeItem("jobflow_role");
+    localStorage.removeItem("jobflow_logged_in"); localStorage.removeItem("jobflow_role"); localStorage.removeItem("jobflow_current_user");
     toast("Đã đăng xuất.", "info"); setRoute("home");
   }
 });
@@ -779,13 +785,75 @@ document.querySelectorAll(".role-card").forEach(b=>b.onclick=()=>{
   state.selectedRole=b.dataset.role;
   document.querySelectorAll(".role-card").forEach(x=>x.classList.toggle("active",x===b));
 });
-document.getElementById("auth-form").onsubmit=e=>{
+document.getElementById("auth-form").onsubmit = e => {
   e.preventDefault();
-  state.loggedIn=true; state.role=state.selectedRole;
-  localStorage.setItem("jobflow_logged_in","true"); localStorage.setItem("jobflow_role",state.role);
+
+  const email = document.getElementById("auth-email").value.trim();
+  const password = document.getElementById("auth-password").value.trim();
+  const nameInput = document.getElementById("auth-name");
+  const name = nameInput ? nameInput.value.trim() : "Demo User";
+
+  let users = getUsers();
+
+  if (state.authMode === "register") {
+    if (!email || !password || !name) {
+      toast("Vui lòng nhập đầy đủ thông tin.", "danger");
+      return;
+    }
+
+    if (users.some(u => u.email === email)) {
+      toast("Email đã tồn tại.", "danger");
+      return;
+    }
+
+    const user = {
+      id: Date.now(),
+      name,
+      email,
+      password,
+      role: state.selectedRole,
+      createdAt: new Date().toISOString(),
+      profile: {
+        phone:"",
+        address:"",
+        bio:"",
+        skills:[]
+      }
+    };
+
+    users.push(user);
+    setUsers(users);
+    setCurrentUser(user);
+
+    state.loggedIn = true;
+    state.role = user.role;
+
+  } else {
+    const user = users.find(
+      u => u.email === email && u.password === password
+    );
+
+    if (!user) {
+      toast("Sai email hoặc mật khẩu.", "danger");
+      return;
+    }
+
+    state.loggedIn = true;
+    state.role = user.role;
+    setCurrentUser(user);
+  }
+
+  localStorage.setItem("jobflow_logged_in","true");
+  localStorage.setItem("jobflow_role",state.role);
+
   closeModal("auth-modal");
-  toast(state.authMode==="register" ? "Tạo tài khoản demo thành công!" : "Đăng nhập thành công!");
-  setRoute(state.role==="candidate" ? "candidate-dashboard" : "employer-dashboard");
+  toast("Đăng nhập thành công!");
+
+  setRoute(
+    state.role === "candidate"
+      ? "candidate-dashboard"
+      : "employer-dashboard"
+  );
 };
 
 render();
