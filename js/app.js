@@ -28,6 +28,30 @@ const getMessages = () => JSON.parse(localStorage.getItem("jobflow_messages") ||
 const setMessages = (v) => localStorage.setItem("jobflow_messages", JSON.stringify(v));
 const getApplications = () => JSON.parse(localStorage.getItem("jobflow_applications") || "[]");
 const setApplications = (v) => localStorage.setItem("jobflow_applications", JSON.stringify(v));
+// Demo employer account - Bright Media Vietnam
+function seedEmployerAccount(){
+  const users = getUsers();
+  const exists = users.some(u=>u.email==="hr@brightmedia.vn");
+  if(!exists){
+    users.push({
+      id: 9001,
+      name:"Bright Media Vietnam",
+      email:"hr@brightmedia.vn",
+      password:"123456",
+      role:"employer",
+      profile:{
+        company:"Bright Media Vietnam",
+        industry:"Digital Marketing",
+        location:"Cầu Giấy, Hà Nội",
+        phone:"024 8888 9999",
+        website:"brightmedia.vn",
+        description:"Agency chuyên Digital Marketing, Content Marketing, SEO và xây dựng thương hiệu."
+      }
+    });
+    setUsers(users);
+  }
+}
+
 
 function esc(s="") {
   return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
@@ -380,6 +404,8 @@ function candidateSidebar(active) {
   </aside>`;
 }
 
+seedEmployerAccount();
+
 function employerSidebar(active) {
   const items = [
     ["employer-dashboard","▦","Tổng quan"],
@@ -390,7 +416,7 @@ function employerSidebar(active) {
     ["company-profile","○","Thông tin công ty"]
   ];
   return `<aside class="dashboard-sidebar employer-side">
-    <div class="profile-mini"><div class="avatar-lg company-avatar">NG</div><div><b>Nova Game Studio</b><span>Nhà tuyển dụng</span></div></div>
+    <div class="profile-mini"><div class="avatar-lg company-avatar">BM</div><div><b>${getCurrentUser()?.name || "Bright Media Vietnam"}</b><span>Nhà tuyển dụng</span></div></div>
     <nav>${items.map(i=>`<button class="${active===i[0]?"active":""}" data-route="${i[0]}"><i>${i[1]}</i>${i[2]}</button>`).join("")}</nav>
   </aside>`;
 }
@@ -481,7 +507,7 @@ function renderEmployerDashboard() {
   return `<section class="dashboard-page"><div class="container dashboard-grid">
     ${employerSidebar("employer-dashboard")}
     <div class="dashboard-content">
-      <div class="welcome-card employer-welcome"><div><span class="eyebrow">EMPLOYER DASHBOARD</span><h1>Nova Game Studio</h1><p>Quản lý tuyển dụng và theo dõi ứng viên trong một giao diện.</p></div><button class="btn btn-primary" data-route="post-job">＋ Đăng tin mới</button></div>
+      <div class="welcome-card employer-welcome"><div><span class="eyebrow">EMPLOYER DASHBOARD</span><h1>${getCurrentUser()?.name || "Bright Media Vietnam"}</h1><p>Quản lý tuyển dụng và theo dõi ứng viên trong một giao diện.</p></div><button class="btn btn-primary" data-route="post-job">＋ Đăng tin mới</button></div>
       <div class="stats-grid">
         <div class="stat-card"><span class="stat-icon">▤</span><div><b>${jobs.length}</b><span>Tin đang tuyển</span></div></div>
         <div class="stat-card"><span class="stat-icon">◎</span><div><b>${candidates.length}</b><span>Tổng ứng viên</span></div></div>
@@ -614,13 +640,13 @@ function renderCompanyProfile() {
       <div class="profile-card">
         <div class="company-profile-cover"><div class="company-logo-xl">NG</div></div>
         <div class="profile-form-grid">
-          <div class="form-group full"><label>Tên công ty</label><input value="Nova Game Studio"></div>
-          <div class="form-group"><label>Email</label><input value="hr@novagame.demo"></div>
+          <div class="form-group full"><label>Tên công ty</label><input value="Bright Media Vietnam"></div>
+          <div class="form-group"><label>Email</label><input value="hr@brightmedia.vn"></div>
           <div class="form-group"><label>Số điện thoại</label><input value="024 3999 8888"></div>
-          <div class="form-group"><label>Website</label><input value="novagame.demo"></div>
+          <div class="form-group"><label>Website</label><input value="brightmedia.vn"></div>
           <div class="form-group"><label>Quy mô</label><select><option>50 - 100 nhân sự</option></select></div>
           <div class="form-group full"><label>Địa chỉ</label><input value="Cầu Giấy, Hà Nội"></div>
-          <div class="form-group full"><label>Giới thiệu</label><textarea>Nova Game Studio là studio phát triển game mobile tập trung vào gameplay có chiều sâu và trải nghiệm người chơi.</textarea></div>
+          <div class="form-group full"><label>Giới thiệu</label><textarea>Bright Media Vietnam là agency chuyên Digital Marketing, Content Marketing, SEO và xây dựng thương hiệu cho doanh nghiệp.</textarea></div>
         </div>
         <div class="form-actions"><button class="btn btn-primary" id="save-company">Lưu thay đổi</button></div>
       </div>
