@@ -55,8 +55,8 @@ function openModal(id) { document.getElementById(id)?.classList.add("show"); doc
 function closeModal(id) { document.getElementById(id)?.classList.remove("show"); document.body.classList.remove("modal-open"); }
 
 function setRoute(route) {
-  const protectedCandidate = ["candidate-dashboard","applications","messages","profile"];
-  const protectedEmployer = ["employer-dashboard","post-job","manage-jobs","applicants","company-profile"];
+  const protectedCandidate = ["candidate-dashboard","applications","profile"];
+  const protectedEmployer = ["employer-dashboard","post-job","manage-jobs","applicants","company-profile","messages"];
   if (protectedCandidate.includes(route) && (!state.loggedIn || state.role !== "candidate")) {
     state.selectedRole = "candidate"; openAuth("login"); return;
   }
@@ -850,7 +850,28 @@ function bindDynamicEvents() {
     render();
   };
 
-  const saveCv=document.getElementById("save-cv"); if(saveCv) saveCv.onclick=()=>toast("Đã lưu CV vào trình duyệt.");
+  const savedCv = JSON.parse(localStorage.getItem("jobflow_cv") || "null");
+  if(savedCv){
+    document.querySelectorAll(".cv-input").forEach(el=>{
+      if(savedCv[el.dataset.cv] !== undefined) el.value=savedCv[el.dataset.cv];
+    });
+  }
+
+  const saveCv=document.getElementById("save-cv"); 
+  if(saveCv) saveCv.onclick=()=>{
+    const cv={};
+    document.querySelectorAll(".cv-input").forEach(el=>cv[el.dataset.cv]=el.value);
+    localStorage.setItem("jobflow_cv", JSON.stringify(cv));
+    const user=getCurrentUser();
+    if(user){
+      user.cv=cv;
+      setCurrentUser(user);
+      const users=getUsers();
+      const idx=users.findIndex(u=>u.id===user.id);
+      if(idx>=0){users[idx]=user;setUsers(users);}
+    }
+    toast("Đã lưu CV thành công!");
+  };
   const resetCv=document.getElementById("reset-cv"); if(resetCv) resetCv.onclick=()=>{localStorage.removeItem("jobflow_cv");toast("Đã làm mới CV.","info");};
   const saveProfile=document.getElementById("save-profile"); if(saveProfile) saveProfile.onclick=()=>toast("Đã lưu hồ sơ cá nhân.");
   const saveCompany=document.getElementById("save-company"); if(saveCompany) saveCompany.onclick=()=>toast("Đã lưu thông tin công ty.");
