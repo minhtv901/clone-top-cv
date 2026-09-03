@@ -2,278 +2,279 @@ const DEFAULT_JOBS = [
 
 {
 id:1,
-title:"Unity Game Developer",
-company:"Nova Game Studio",
-logo:"NG",
+title:"Digital Marketing Executive",
+company:"Bright Media Vietnam",
+logo:"BM",
 location:"Hà Nội",
-salary:"15 - 25 triệu",
+salary:"12 - 20 triệu",
 type:"Full-time",
 experience:"1 - 2 năm",
-category:"Game / IT",
-skills:["Unity","C#","Git"],
+category:"Marketing",
+skills:["Facebook Ads","Google Ads","SEO"],
 hot:true,
-applicants:12,
+applicants:42,
 posted:"2 giờ trước",
-description:"Phát triển gameplay, hệ thống nhân vật và tối ưu hiệu năng game Unity.",
+description:"Triển khai chiến dịch Digital Marketing, tối ưu quảng cáo và phân tích hiệu quả marketing.",
 requirements:[
-"Có kinh nghiệm Unity và C#",
-"Hiểu OOP, Game Loop",
-"Có tư duy xử lý bug"
+"Có kinh nghiệm chạy Facebook Ads/Google Ads",
+"Biết phân tích dữ liệu marketing",
+"Có tư duy sáng tạo"
 ],
 benefits:[
-"Thưởng dự án",
-"Review lương",
-"Thiết bị làm việc"
+"Thưởng KPI",
+"Đào tạo chuyên môn",
+"Team building"
 ],
-companyDesc:"Studio phát triển game mobile và PC."
+companyDesc:"Agency marketing chuyên triển khai chiến dịch cho thương hiệu lớn."
 },
 
 
 {
 id:2,
-title:"Frontend Developer",
-company:"PixelCraft Technology",
-logo:"PC",
+title:"Content Marketing Specialist",
+company:"Creative House",
+logo:"CH",
 location:"Hồ Chí Minh",
-salary:"18 - 32 triệu",
+salary:"10 - 18 triệu",
 type:"Full-time",
-experience:"2 năm",
-category:"Software",
-skills:["React","Javascript","CSS"],
+experience:"1 năm",
+category:"Content",
+skills:["Content Writing","Social Media","Copywriting"],
 hot:true,
-applicants:24,
+applicants:36,
 posted:"5 giờ trước",
-description:"Xây dựng giao diện web hiện đại, tối ưu UX và hiệu năng.",
+description:"Xây dựng nội dung cho Facebook, TikTok, Website và các nền tảng truyền thông.",
 requirements:[
-"Thành thạo React",
-"Biết responsive design",
-"Có tư duy component"
+"Khả năng viết tốt",
+"Hiểu social media",
+"Có tư duy storytelling"
 ],
 benefits:[
-"Hybrid working",
-"Macbook",
-"Team building"
+"Môi trường sáng tạo",
+"Thưởng nội dung"
 ],
-companyDesc:"Công ty phát triển nền tảng SaaS."
+companyDesc:"Công ty chuyên sản xuất nội dung và truyền thông thương hiệu."
 },
 
 
 {
 id:3,
-title:"UI/UX Designer",
-company:"Lumi Creative Studio",
-logo:"LC",
+title:"Social Media Executive",
+company:"Trendify Studio",
+logo:"TS",
 location:"Hà Nội",
-salary:"14 - 25 triệu",
+salary:"12 - 22 triệu",
 type:"Hybrid",
 experience:"1 - 2 năm",
-category:"Design",
-skills:["Figma","Prototype","UX Research"],
-hot:true,
-applicants:18,
-posted:"3 giờ trước",
-description:"Thiết kế trải nghiệm người dùng cho web và mobile app.",
+category:"Marketing",
+skills:["TikTok","Facebook","Content Plan"],
+hot:false,
+applicants:28,
+posted:"Hôm nay",
+description:"Quản lý kênh social, lên kế hoạch nội dung và phát triển cộng đồng.",
 requirements:[
-"Có portfolio UI/UX",
-"Thành thạo Figma",
-"Hiểu Design System"
+"Có kinh nghiệm quản lý fanpage",
+"Biết bắt trend",
+"Hiểu hành vi người dùng"
 ],
 benefits:[
-"Flexible time",
+"Làm việc linh hoạt",
 "Creative environment"
 ],
-companyDesc:"Agency chuyên thiết kế sản phẩm số."
+companyDesc:"Studio phát triển nội dung social cho nhiều thương hiệu."
 },
 
 
 {
 id:4,
-title:"Digital Marketing Executive",
-company:"EverGreen Commerce",
-logo:"EC",
-location:"Hà Nội",
-salary:"12 - 20 triệu",
-type:"Full-time",
-experience:"1 năm",
+title:"SEO Specialist",
+company:"Growth Digital",
+logo:"GD",
+location:"Remote",
+salary:"15 - 28 triệu",
+type:"Remote",
+experience:"2 năm",
 category:"Marketing",
-skills:["SEO","Facebook Ads","Content"],
+skills:["SEO","Google Analytics","Keyword Research"],
 hot:false,
-applicants:35,
-posted:"Hôm nay",
-description:"Lên kế hoạch marketing online và triển khai chiến dịch quảng cáo.",
+applicants:19,
+posted:"1 ngày trước",
+description:"Tối ưu SEO website, nghiên cứu từ khóa và tăng trưởng traffic.",
 requirements:[
-"Có kinh nghiệm chạy Ads",
-"Biết phân tích dữ liệu",
-"Tư duy sáng tạo"
+"Có kinh nghiệm SEO",
+"Biết Google Search Console",
+"Tư duy phân tích"
 ],
 benefits:[
-"KPI Bonus",
-"Du lịch hàng năm"
+"Remote",
+"Thưởng theo kết quả"
 ],
-companyDesc:"Doanh nghiệp thương mại điện tử."
+companyDesc:"Agency chuyên Growth Marketing."
 },
 
 
 {
 id:5,
-title:"Content Creator",
-company:"Media House Vietnam",
-logo:"MH",
+title:"Brand Marketing Executive",
+company:"Nova Lifestyle",
+logo:"NL",
 location:"Hồ Chí Minh",
-salary:"10 - 18 triệu",
+salary:"18 - 30 triệu",
 type:"Full-time",
-experience:"Fresher",
-category:"Content / Media",
-skills:["Writing","Video","Social Media"],
-hot:false,
-applicants:42,
-posted:"1 ngày trước",
-description:"Sáng tạo nội dung cho TikTok, Facebook và website.",
+experience:"2 năm",
+category:"Branding",
+skills:["Brand Strategy","Campaign","Research"],
+hot:true,
+applicants:15,
+posted:"2 ngày trước",
+description:"Xây dựng chiến lược thương hiệu và triển khai các chiến dịch marketing.",
 requirements:[
-"Viết content tốt",
-"Biết edit video cơ bản"
+"Có kinh nghiệm branding",
+"Tư duy chiến lược",
+"Kỹ năng quản lý dự án"
 ],
 benefits:[
-"Môi trường trẻ",
-"Được đào tạo"
+"Bonus dự án",
+"Môi trường chuyên nghiệp"
 ],
-companyDesc:"Công ty truyền thông và sáng tạo nội dung."
+companyDesc:"Thương hiệu lifestyle đang mở rộng thị trường."
 },
 
 
 {
 id:6,
-title:"Backend Developer",
-company:"CloudPeak Solutions",
-logo:"CS",
-location:"Đà Nẵng",
-salary:"22 - 40 triệu",
+title:"Graphic Designer",
+company:"Pixel Creative Agency",
+logo:"PC",
+location:"Hà Nội",
+salary:"12 - 25 triệu",
 type:"Full-time",
-experience:"2 - 3 năm",
-category:"Software",
-skills:["NodeJS","SQL","Docker"],
+experience:"1 - 2 năm",
+category:"Design",
+skills:["Photoshop","Illustrator","Figma"],
 hot:false,
-applicants:16,
+applicants:24,
 posted:"2 ngày trước",
-description:"Xây dựng API và hệ thống backend cho doanh nghiệp.",
+description:"Thiết kế hình ảnh quảng cáo, social post và bộ nhận diện thương hiệu.",
 requirements:[
-"NodeJS",
-"Database",
-"REST API"
+"Có portfolio",
+"Thành thạo công cụ thiết kế",
+"Cảm quan thẩm mỹ tốt"
 ],
 benefits:[
-"Remote",
-"Health Insurance"
+"Creative workspace",
+"Training"
 ],
-companyDesc:"Công ty cloud technology."
+companyDesc:"Agency thiết kế và xây dựng thương hiệu."
 },
 
 
 {
 id:7,
-title:"Graphic Designer",
-company:"Creative Lab",
-logo:"CL",
+title:"Marketing Intern",
+company:"Global Commerce",
+logo:"GC",
 location:"Hà Nội",
-salary:"12 - 22 triệu",
-type:"Full-time",
-experience:"1 năm",
-category:"Design",
-skills:["Photoshop","Illustrator","Branding"],
+salary:"3 - 6 triệu",
+type:"Internship",
+experience:"Fresher",
+category:"Marketing",
+skills:["Research","Social Media","Excel"],
 hot:false,
-applicants:20,
-posted:"2 ngày trước",
-description:"Thiết kế banner, branding và ấn phẩm truyền thông.",
+applicants:60,
+posted:"3 ngày trước",
+description:"Hỗ trợ team marketing triển khai nội dung và nghiên cứu thị trường.",
 requirements:[
-"Sử dụng tốt Photoshop",
-"Có portfolio"
+"Chăm chỉ",
+"Có tinh thần học hỏi",
+"Yêu thích marketing"
 ],
 benefits:[
-"Creative space",
-"Training"
+"Hỗ trợ dấu thực tập",
+"Cơ hội lên chính thức"
 ],
-companyDesc:"Studio thiết kế thương hiệu."
+companyDesc:"Công ty thương mại điện tử."
 },
 
 
 {
 id:8,
-title:"HR Recruitment Specialist",
-company:"Global Talent Group",
-logo:"GT",
-location:"Hà Nội",
-salary:"15 - 25 triệu",
+title:"E-commerce Marketing Specialist",
+company:"ShopHub Vietnam",
+logo:"SH",
+location:"Hồ Chí Minh",
+salary:"15 - 30 triệu",
 type:"Full-time",
 experience:"2 năm",
-category:"Human Resource",
-skills:["Recruitment","Communication","HR"],
-hot:false,
-applicants:13,
-posted:"3 ngày trước",
-description:"Tìm kiếm ứng viên và quản lý quy trình tuyển dụng.",
+category:"E-commerce",
+skills:["Shopee","TikTok Shop","Ads"],
+hot:true,
+applicants:32,
+posted:"4 ngày trước",
+description:"Quản lý marketing trên các nền tảng thương mại điện tử.",
 requirements:[
-"Có kinh nghiệm tuyển dụng",
-"Kỹ năng giao tiếp tốt"
+"Có kinh nghiệm marketplace",
+"Biết tối ưu quảng cáo"
 ],
 benefits:[
-"Bonus tuyển dụng",
-"Career path"
+"Thưởng doanh số",
+"Được học Ecommerce"
 ],
-companyDesc:"Công ty nhân sự quốc tế."
+companyDesc:"Nền tảng bán hàng online."
 },
 
 
 {
 id:9,
-title:"Data Analyst",
-company:"Insight Data Vietnam",
-logo:"ID",
-location:"Remote",
-salary:"18 - 35 triệu",
-type:"Remote",
-experience:"1 - 2 năm",
-category:"Data",
-skills:["SQL","Excel","Python"],
-hot:true,
-applicants:22,
-posted:"4 giờ trước",
-description:"Phân tích dữ liệu và xây dựng báo cáo kinh doanh.",
+title:"Business Development Executive",
+company:"NextGrowth",
+logo:"NG",
+location:"Đà Nẵng",
+salary:"15 - 35 triệu",
+type:"Full-time",
+experience:"1 - 3 năm",
+category:"Business",
+skills:["Sales","Negotiation","CRM"],
+hot:false,
+applicants:20,
+posted:"5 ngày trước",
+description:"Phát triển khách hàng và mở rộng thị trường.",
 requirements:[
-"Biết SQL",
-"Tư duy phân tích"
+"Kỹ năng giao tiếp tốt",
+"Có tư duy kinh doanh"
 ],
 benefits:[
-"Remote",
-"Training"
+"Hoa hồng cao",
+"Career path"
 ],
-companyDesc:"Công ty chuyên giải pháp dữ liệu."
+companyDesc:"Công ty cung cấp giải pháp doanh nghiệp."
 },
 
 
 {
 id:10,
-title:"Sales Executive",
-company:"Nova Business",
-logo:"NB",
-location:"Hồ Chí Minh",
-salary:"12 - 30 triệu",
+title:"HR Recruitment Specialist",
+company:"Talent Pro",
+logo:"TP",
+location:"Hà Nội",
+salary:"14 - 25 triệu",
 type:"Full-time",
-experience:"Fresher",
-category:"Sales",
-skills:["Communication","CRM","Negotiation"],
+experience:"1 - 2 năm",
+category:"Human Resource",
+skills:["Recruitment","Communication","HR"],
 hot:false,
-applicants:50,
-posted:"5 ngày trước",
-description:"Tìm kiếm khách hàng và phát triển thị trường.",
+applicants:18,
+posted:"1 tuần trước",
+description:"Tuyển dụng nhân sự và xây dựng nguồn ứng viên.",
 requirements:[
-"Giao tiếp tốt",
-"Chủ động"
+"Có kinh nghiệm tuyển dụng",
+"Kỹ năng giao tiếp tốt"
 ],
 benefits:[
-"Hoa hồng cao",
-"Thưởng doanh số"
+"Thưởng tuyển dụng",
+"Môi trường chuyên nghiệp"
 ],
-companyDesc:"Doanh nghiệp cung cấp giải pháp B2B."
+companyDesc:"Công ty dịch vụ nhân sự."
 }
 
 ];
