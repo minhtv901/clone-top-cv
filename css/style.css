@@ -897,13 +897,25 @@ body{
 /* tiny child silhouette */
 .poetic-child{
   position:absolute;
-  width:125px;
-  height:120px;
+  width:270px;
+  height:240px;
   left:43%;
   top:51%;
   transform:translate(-50%,-50%);
   z-index:5;
   animation:poeticChildFloat 5.5s ease-in-out infinite;
+}
+
+.poetic-boy-image{
+    position:absolute;
+
+    width:500px;   /* tăng số này để phóng to */
+    height:auto;
+
+    left:-130px;    /* dịch trái phải */
+    top:-205px;     /* dịch lên xuống */
+
+    object-fit:contain;
 }
 
 @keyframes poeticChildFloat{
@@ -995,8 +1007,8 @@ body{
   position:absolute;
   width:180px;
   height:190px;
-  left:197px;
-  top:79px;
+  left:210px;
+  top:75px;
   transform-origin:3px 0;
   animation:poeticSwing 4.6s ease-in-out infinite;
 }

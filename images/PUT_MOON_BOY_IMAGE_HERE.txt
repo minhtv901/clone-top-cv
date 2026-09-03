@@ -1,0 +1,7 @@
+Replace this folder with your image:
+moon-boy.png
+
+Recommended:
+- transparent PNG
+- contains moon + child + fishing rod
+- without Dream Job card and hanging string
