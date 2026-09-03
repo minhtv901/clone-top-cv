@@ -1306,3 +1306,79 @@ body{
     transform-origin:44% 68%;
   }
 }
+
+/* =========================================================
+   FIX AUTH MODAL SCROLL
+   Allow login/register modal to scroll on small screens
+   ========================================================= */
+
+body.modal-open{
+  overflow:hidden;
+}
+
+.modal-overlay{
+  overflow-y:auto !important;
+  align-items:center;
+  padding:24px 16px !important;
+}
+
+.auth-modal{
+  max-height:90vh !important;
+  overflow:hidden !important;
+}
+
+.auth-content{
+  max-height:90vh !important;
+  overflow-y:auto !important;
+  overflow-x:hidden;
+  scrollbar-width:thin;
+  scrollbar-color:rgba(108,140,255,.45) transparent;
+}
+
+.auth-content::-webkit-scrollbar{
+  width:6px;
+}
+
+.auth-content::-webkit-scrollbar-track{
+  background:transparent;
+}
+
+.auth-content::-webkit-scrollbar-thumb{
+  background:rgba(108,140,255,.45);
+  border-radius:20px;
+}
+
+/* prevent register button being hidden */
+#auth-form{
+  padding-bottom:24px;
+}
+
+@media(max-height:700px){
+  .modal-overlay{
+    align-items:flex-start !important;
+    padding-top:20px !important;
+    padding-bottom:20px !important;
+  }
+
+  .auth-modal{
+    max-height:95vh !important;
+  }
+
+  .auth-content{
+    max-height:95vh !important;
+  }
+}
+
+@media(max-width:720px){
+  .modal-overlay{
+    padding:12px !important;
+  }
+
+  .auth-modal{
+    max-height:96vh !important;
+  }
+
+  .auth-content{
+    max-height:96vh !important;
+  }
+}
