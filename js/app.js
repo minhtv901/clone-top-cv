@@ -879,7 +879,15 @@ function bindDynamicEvents() {
   const postForm=document.getElementById("post-job-form"); if(postForm) postForm.onsubmit=e=>{
     e.preventDefault(); const fd=new FormData(postForm); const jobs=getJobs(); const user=getCurrentUser(); const p=user?.profile||{}; const company=p.company||user?.name||"Công ty mới";
     const req=(fd.get("requirements")||"").split(";").map(x=>x.trim()).filter(Boolean); const ben=(fd.get("benefits")||"").split(";").map(x=>x.trim()).filter(Boolean); const skills=(fd.get("skills")||"").split(",").map(x=>x.trim()).filter(Boolean);
-    jobs.unshift({id:Date.now(),employerId:user?.id||null,title:fd.get("title"),company,logo:initials(company),location:fd.get("location"),workingTime:fd.get("workingTime")||"Trao đổi khi phỏng vấn",quantity:Number(fd.get("quantity")||1),applyMethod:fd.get("applyMethod")||"Email",salary:fd.get("salary"),type:fd.get("type"),experience:fd.get("experience"),category:p.industry||"Marketing",skills:skills.length?skills:["Marketing"],hot:true,applicants:0,posted:"Vừa xong",description:fd.get("description")||"Mô tả công việc đang được cập nhật.",requirements:req.length?req:["Trao đổi khi phỏng vấn"],benefits:ben.length?ben:["Thỏa thuận theo năng lực"],companyDesc:p.description||`${company} đang tuyển dụng các vị trí Marketing và Creative.`});
+    const editId = postForm.dataset.editId ? Number(postForm.dataset.editId) : null;
+    const jobData = {id:editId || Date.now(),employerId:user?.id||null,title:fd.get("title"),company,logo:initials(company),location:fd.get("location"),workingTime:fd.get("workingTime")||"Trao đổi khi phỏng vấn",quantity:Number(fd.get("quantity")||1),applyMethod:fd.get("applyMethod")||"Email",salary:fd.get("salary"),type:fd.get("type"),experience:fd.get("experience"),category:p.industry||"Marketing",skills:skills.length?skills:["Marketing"],hot:true,applicants:0,posted:"Vừa xong",description:fd.get("description")||"Mô tả công việc đang được cập nhật.",requirements:req.length?req:["Trao đổi khi phỏng vấn"],benefits:ben.length?ben:["Thỏa thuận theo năng lực"],companyDesc:p.description||`${company} đang tuyển dụng các vị trí Marketing và Creative.`};
+    if(editId){
+      const index = jobs.findIndex(j=>Number(j.id)===editId);
+      if(index>=0) jobs[index] = {...jobs[index], ...jobData};
+    }else{
+      jobs.unshift(jobData);
+    }
+    delete postForm.dataset.editId;
     setJobs(jobs); toast("Đăng tin tuyển dụng thành công!"); setRoute("manage-jobs");
   };
 
