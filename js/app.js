@@ -658,7 +658,10 @@ function renderPostJob() {
       <form class="post-job-form" id="post-job-form">
         <div class="form-card"><h3>Thông tin cơ bản</h3><div class="form-grid">
           <div class="form-group full"><label>Tên vị trí *</label><input name="title" placeholder="VD: Digital Marketing Executive" required></div>
-          <div class="form-group"><label>Địa điểm *</label><input name="location" placeholder="Hà Nội" required></div>
+          <div class="form-group"><label>Địa điểm làm việc *</label><input name="location" placeholder="Hà Nội / Remote" required></div>
+          <div class="form-group"><label>Thời gian làm việc</label><input name="workingTime" placeholder="VD: Thứ 2 - Thứ 6, 8:30 - 17:30"></div>
+          <div class="form-group"><label>Số lượng cần tuyển</label><input name="quantity" type="number" min="1" placeholder="VD: 3"></div>
+          <div class="form-group"><label>Cách ứng tuyển</label><select name="applyMethod"><option>Email</option><option>Website công ty</option><option>Nhắn tin trực tiếp</option><option>LinkedIn</option></select></div>
           <div class="form-group"><label>Mức lương *</label><input name="salary" placeholder="15 - 25 triệu" required></div>
           <div class="form-group"><label>Kinh nghiệm</label><select name="experience"><option>Fresher</option><option selected>1 - 2 năm</option><option>2 - 3 năm</option><option>Trên 3 năm</option></select></div>
           <div class="form-group"><label>Hình thức</label><select name="type"><option>Full-time</option><option>Part-time</option><option>Hybrid</option><option>Remote</option></select></div>
@@ -677,7 +680,7 @@ function renderPostJob() {
 
 function renderManageJobs() {
   const user=getCurrentUser(); const jobs=getCompanyJobs(user?.id,user?.profile?.company||user?.name); const apps=getEmployerApplications(user);
-  return `<section class="dashboard-page"><div class="container dashboard-grid">${employerSidebar("manage-jobs")}<div class="dashboard-content"><div class="dash-title row-title"><div><span class="eyebrow">JOB MANAGEMENT</span><h1>Quản lý tin tuyển dụng</h1><p>Theo dõi và quản lý các vị trí đang tuyển.</p></div><button class="btn btn-primary" data-route="post-job">＋ Đăng tin mới</button></div><div class="table-card"><div class="table-toolbar"><div class="search-small">⌕ <input placeholder="Tìm tin tuyển dụng..."></div><select><option>Tất cả trạng thái</option><option>Đang tuyển</option><option>Đã đóng</option></select></div><div class="responsive-table"><table><thead><tr><th>Vị trí</th><th>Ứng viên</th><th>Đăng lúc</th><th>Trạng thái</th><th>Thao tác</th></tr></thead><tbody>${jobs.map(j=>{const count=apps.filter(a=>String(a.jobId)===String(j.id)).length; return `<tr><td><div><b>${esc(j.title)}</b><span class="cell-sub">${esc(j.location)} • ${esc(j.salary)}</span></div></td><td><b>${count}</b> hồ sơ</td><td>${esc(j.posted)}</td><td><span class="status success">Đang tuyển</span></td><td><div class="action-row"><button class="icon-btn" data-route="applicants" title="Xem ứng viên">◎</button><button class="icon-btn" data-open-job="${j.id}" title="Xem tin">→</button><button class="icon-btn danger-ghost" data-close-job="${j.id}" title="Đóng tin">×</button></div></td></tr>`}).join("")}</tbody></table></div></div></div></div></section>`;
+  return `<section class="dashboard-page"><div class="container dashboard-grid">${employerSidebar("manage-jobs")}<div class="dashboard-content"><div class="dash-title row-title"><div><span class="eyebrow">JOB MANAGEMENT</span><h1>Quản lý tin tuyển dụng</h1><p>Theo dõi và quản lý các vị trí đang tuyển.</p></div><button class="btn btn-primary" data-route="post-job">＋ Đăng tin mới</button></div><div class="table-card"><div class="table-toolbar"><div class="search-small">⌕ <input placeholder="Tìm tin tuyển dụng..."></div><select><option>Tất cả trạng thái</option><option>Đang tuyển</option><option>Đã đóng</option></select></div><div class="responsive-table"><table><thead><tr><th>Vị trí</th><th>Ứng viên</th><th>Đăng lúc</th><th>Trạng thái</th><th>Thao tác</th></tr></thead><tbody>${jobs.map(j=>{const count=apps.filter(a=>String(a.jobId)===String(j.id)).length; return `<tr><td><div><b>${esc(j.title)}</b><span class="cell-sub">${esc(j.location)} • ${esc(j.salary)} • Tuyển ${esc(j.quantity || 1)} người</span></div></td><td><b>${count}</b> hồ sơ</td><td>${esc(j.posted)}</td><td><span class="status success">Đang tuyển</span></td><td><div class="action-row"><button class="icon-btn" data-route="applicants" title="Xem ứng viên">◎</button><button class="icon-btn" data-open-job="${j.id}" title="Xem tin">→</button><button class="icon-btn" data-edit-job="${j.id}" title="Sửa tin">✎</button><button class="icon-btn danger-ghost" data-delete-job="${j.id}" title="Xóa tin">🗑</button></div></td></tr>`}).join("")}</tbody></table></div></div></div></div></section>`;
 }
 
 function renderApplicants() {
@@ -876,11 +879,30 @@ function bindDynamicEvents() {
   const postForm=document.getElementById("post-job-form"); if(postForm) postForm.onsubmit=e=>{
     e.preventDefault(); const fd=new FormData(postForm); const jobs=getJobs(); const user=getCurrentUser(); const p=user?.profile||{}; const company=p.company||user?.name||"Công ty mới";
     const req=(fd.get("requirements")||"").split(";").map(x=>x.trim()).filter(Boolean); const ben=(fd.get("benefits")||"").split(";").map(x=>x.trim()).filter(Boolean); const skills=(fd.get("skills")||"").split(",").map(x=>x.trim()).filter(Boolean);
-    jobs.unshift({id:Date.now(),employerId:user?.id||null,title:fd.get("title"),company,logo:initials(company),location:fd.get("location"),salary:fd.get("salary"),type:fd.get("type"),experience:fd.get("experience"),category:p.industry||"Marketing",skills:skills.length?skills:["Marketing"],hot:true,applicants:0,posted:"Vừa xong",description:fd.get("description")||"Mô tả công việc đang được cập nhật.",requirements:req.length?req:["Trao đổi khi phỏng vấn"],benefits:ben.length?ben:["Thỏa thuận theo năng lực"],companyDesc:p.description||`${company} đang tuyển dụng các vị trí Marketing và Creative.`});
+    jobs.unshift({id:Date.now(),employerId:user?.id||null,title:fd.get("title"),company,logo:initials(company),location:fd.get("location"),workingTime:fd.get("workingTime")||"Trao đổi khi phỏng vấn",quantity:Number(fd.get("quantity")||1),applyMethod:fd.get("applyMethod")||"Email",salary:fd.get("salary"),type:fd.get("type"),experience:fd.get("experience"),category:p.industry||"Marketing",skills:skills.length?skills:["Marketing"],hot:true,applicants:0,posted:"Vừa xong",description:fd.get("description")||"Mô tả công việc đang được cập nhật.",requirements:req.length?req:["Trao đổi khi phỏng vấn"],benefits:ben.length?ben:["Thỏa thuận theo năng lực"],companyDesc:p.description||`${company} đang tuyển dụng các vị trí Marketing và Creative.`});
     setJobs(jobs); toast("Đăng tin tuyển dụng thành công!"); setRoute("manage-jobs");
   };
 
-  const chatForm=document.getElementById("chat-form"); if(chatForm) chatForm.onsubmit=e=>{
+    document.querySelectorAll("[data-delete-job]").forEach(btn=>btn.onclick=()=>{
+    const id=Number(btn.dataset.deleteJob);
+    if(!confirm("Xóa tin tuyển dụng này?")) return;
+    setJobs(getJobs().filter(j=>Number(j.id)!==id));
+    toast("Đã xóa tin tuyển dụng");
+    render();
+  });
+  document.querySelectorAll("[data-edit-job]").forEach(btn=>btn.onclick=()=>{
+    const id=Number(btn.dataset.editJob);
+    const job=getJobs().find(j=>Number(j.id)===id);
+    if(!job) return;
+    setRoute("post-job");
+    setTimeout(()=>{
+      const form=document.getElementById("post-job-form");
+      if(!form) return;
+      Object.keys(job).forEach(k=>{ if(form.elements[k]) form.elements[k].value=Array.isArray(job[k])?job[k].join(","):job[k]||"";});
+      form.dataset.editId=id;
+    },50);
+  });
+const chatForm=document.getElementById("chat-form"); if(chatForm) chatForm.onsubmit=e=>{
     e.preventDefault(); const input=document.getElementById("chat-input"); const text=input.value.trim(); if(!text)return; const user=getCurrentUser(); const all=getMessages(); const conv=all.find(m=>String(m.id)===String(state.currentChat));
     if(conv){const time=new Date().toLocaleTimeString("vi-VN",{hour:"2-digit",minute:"2-digit"}); conv.messages=conv.messages||[]; conv.messages.push({senderId:user?.id,senderRole:state.role,senderName:state.role==="employer"?(user?.profile?.company||user?.name||"Nhà tuyển dụng"):(user?.name||"Ứng viên"),text,time}); conv.last=text; conv.time="Vừa xong"; if(state.role==="employer"){conv.unreadForCandidate=(conv.unreadForCandidate||0)+1;conv.unreadForEmployer=0;}else{conv.unreadForEmployer=(conv.unreadForEmployer||0)+1;conv.unreadForCandidate=0;} setMessages(all);} render();
   };
