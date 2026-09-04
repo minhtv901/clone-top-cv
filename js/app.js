@@ -187,7 +187,7 @@ function seedEmployerAccount(){
   setUsers(users);
 }
 
-function esc(s="") {
+function formatJobText(value){return esc(value||'').replace(/\n/g,'<br>');}\n\nfunction esc(s="") {
   return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 }
 function statusMeta(status) {
@@ -749,9 +749,9 @@ function showJob(jobId) {
     <div class="job-detail-meta"><div><span>💰</span><b>${esc(job.salary)}</b><small>Mức lương</small></div><div><span>📍</span><b>${esc(job.location)}</b><small>Địa điểm</small></div><div><span>◷</span><b>${esc(job.experience)}</b><small>Kinh nghiệm</small></div></div>
     <div class="detail-grid">
       <div class="detail-main">
-        <section><h3>Mô tả công việc</h3><p>${esc(job.description)}</p></section>
-        <section><h3>Yêu cầu ứng viên</h3><ul>${job.requirements.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></section>
-        <section><h3>Quyền lợi</h3><ul>${job.benefits.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></section>
+        <section><h3>Mô tả công việc</h3><p class="job-text">${formatJobText(job.description)}</p></section>
+        <section><h3>Yêu cầu ứng viên</h3><ul>${job.requirements.map(x=>`<li>${formatJobText(x)}</li>`).join("")}</ul></section>
+        <section><h3>Quyền lợi</h3><ul>${job.benefits.map(x=>`<li>${formatJobText(x)}</li>`).join("")}</ul></section>
         <section><h3>Kỹ năng</h3><div class="tag-row">${job.skills.map(x=>`<span class="tag">${esc(x)}</span>`).join("")}</div></section>
       </div>
       <aside class="detail-side">
