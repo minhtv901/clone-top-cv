@@ -1,0 +1,1 @@
+Optimized job posting display: preserve line breaks, improved textarea, job content formatting.

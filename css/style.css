@@ -1382,3 +1382,37 @@ body.modal-open{
     max-height:96vh !important;
   }
 }
+
+
+/* job text formatting */
+.job-description,.job-detail p,.job-detail div,.description { white-space: pre-line; }
+.post-job-form textarea { min-height:120px; resize:vertical; }
+
+
+/* V4 job content optimization */
+.job-description,
+.job-content-text,
+.job-section p,
+.job-section div,
+.detail-description,
+.description-text,
+.requirement-text,
+.benefit-text,
+.apply-method-text {
+    white-space: pre-line;
+    line-height: 1.7;
+}
+
+.post-job-form textarea {
+    min-height: 130px;
+    resize: vertical;
+    line-height: 1.6;
+}
+
+.job-section {
+    margin-bottom: 20px;
+}
+
+.job-meta-card {
+    white-space: normal;
+}

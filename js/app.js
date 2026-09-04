@@ -661,10 +661,10 @@ function renderPostJob() {
           <div class="form-group"><label>Địa điểm làm việc *</label><input name="location" placeholder="Hà Nội / Remote" required></div>
           <div class="form-group"><label>Thời gian làm việc</label><input name="workingTime" placeholder="VD: Thứ 2 - Thứ 6, 8:30 - 17:30"></div>
           <div class="form-group"><label>Số lượng cần tuyển</label><input name="quantity" type="number" min="1" placeholder="VD: 3"></div>
-          <div class="form-group"><label>Cách ứng tuyển</label><select name="applyMethod"><option>Email</option><option>Website công ty</option><option>Nhắn tin trực tiếp</option><option>LinkedIn</option></select></div>
+          <div class="form-group"><label>Cách ứng tuyển</label><textarea name="applyMethod" placeholder="Nhập cách ứng tuyển: Email, số điện thoại, website công ty..."></textarea></div>
           <div class="form-group"><label>Mức lương *</label><input name="salary" placeholder="15 - 25 triệu" required></div>
           <div class="form-group"><label>Kinh nghiệm</label><select name="experience"><option>Fresher</option><option selected>1 - 2 năm</option><option>2 - 3 năm</option><option>Trên 3 năm</option></select></div>
-          <div class="form-group"><label>Hình thức</label><select name="type"><option>Full-time</option><option>Part-time</option><option>Hybrid</option><option>Remote</option></select></div>
+          <div class="form-group"><label>Địa điểm làm việc</label><input name="location" placeholder="Ví dụ: Hà Nội"></div><div class="form-group"><label>Thời gian làm việc</label><input name="workingTime" placeholder="Ví dụ: Thứ 2 - Thứ 6, 8:30 - 17:30"></div><div class="form-group"><label>Số lượng cần tuyển</label><input name="quantity" type="number" min="1" placeholder="Ví dụ: 3"></div><div class="form-group"><label>Hình thức</label><select name="type"><option>Full-time</option><option>Part-time</option><option>Hybrid</option><option>Remote</option></select></div>
           <div class="form-group full"><label>Kỹ năng</label><input name="skills" placeholder="Facebook Ads, Google Ads, SEO"></div>
         </div></div>
         <div class="form-card"><h3>Nội dung tuyển dụng</h3>
