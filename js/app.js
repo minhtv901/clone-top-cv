@@ -740,30 +740,88 @@ function render() {
 }
 
 function showJob(jobId) {
-  const job = getJobs().find(j=>j.id===Number(jobId));
+  const job = getJobs().find(j=>String(j.id)===String(jobId));
   if (!job) return;
+
   state.selectedJob = job.id;
+
   document.getElementById("job-modal-content").innerHTML = `
     <button class="modal-close" data-close-modal="job-modal">×</button>
-    <div class="job-detail-head">
-      <div class="job-logo big">${esc(job.logo)}</div>
-      <div><span class="eyebrow">${esc(job.category)}</span><h2>${esc(job.title)}</h2><p>${esc(job.company)}</p></div>
-      ${job.hot?'<span class="hot-badge">HOT</span>':''}
-    </div>
-    <div class="job-detail-meta"><div><span>💰</span><b>${esc(job.salary)}</b><small>Mức lương</small></div><div><span>📍</span><b>${esc(job.location)}</b><small>Địa điểm</small></div><div><span>◷</span><b>${esc(job.experience)}</b><small>Kinh nghiệm</small></div></div>
-    <div class="detail-grid">
-      <div class="detail-main">
-        <section><h3>Mô tả công việc</h3><p class="job-text">${formatJobText(job.description)}</p></section>
-        <section><h3>Yêu cầu ứng viên</h3><ul>${job.requirements.map(x=>`<li>${formatJobText(x)}</li>`).join("")}</ul></section>
-        <section><h3>Quyền lợi</h3><ul>${job.benefits.map(x=>`<li>${formatJobText(x)}</li>`).join("")}</ul></section>
-        <section><h3>Kỹ năng</h3><div class="tag-row">${job.skills.map(x=>`<span class="tag">${esc(x)}</span>`).join("")}</div></section>
+
+    <div class="job-detail-v2">
+      <div class="job-v2-header">
+        <div class="job-v2-company">
+          <div class="job-logo big">${esc(job.logo)}</div>
+          <div>
+            <span class="eyebrow">${esc(job.category || "JOB OPPORTUNITY")}</span>
+            <h2>${esc(job.title)}</h2>
+            <p>${esc(job.company)}</p>
+          </div>
+        </div>
+        <div class="job-v2-actions">
+          ${job.hot ? '<span class="hot-badge">HOT</span>' : ''}
+        </div>
       </div>
-      <aside class="detail-side">
-        <div class="company-summary"><span class="mini-logo">${esc(job.logo)}</span><h3>${esc(job.company)}</h3><p>${esc(job.companyDesc)}</p><div>📍 ${esc(job.location)}</div></div>
-        <button class="btn btn-primary btn-full" data-apply-job="${job.id}">Ứng tuyển ngay</button>
-        <button class="btn btn-soft btn-full">♡ Lưu việc làm</button>
-      </aside>
-    </div>`;
+
+      <div class="job-v2-info">
+        <div><small>Mức lương</small><b>💰 ${esc(job.salary)}</b></div>
+        <div><small>Địa điểm</small><b>📍 ${esc(job.location)}</b></div>
+        <div><small>Hình thức</small><b>🕒 ${esc(job.type)}</b></div>
+        <div><small>Kinh nghiệm</small><b>🎯 ${esc(job.experience)}</b></div>
+        <div><small>Số lượng</small><b>👥 ${esc(job.quantity || 1)} người</b></div>
+        <div><small>Thời gian</small><b>⏰ ${esc(job.workingTime || "Trao đổi")}</b></div>
+      </div>
+
+      <div class="job-v2-layout">
+        <main class="job-v2-content">
+
+          <section class="job-v2-section">
+            <h3>Mô tả công việc</h3>
+            <div class="job-description-box">${formatJobText(job.description)}</div>
+          </section>
+
+          <section class="job-v2-two-col">
+            <div>
+              <h3>Yêu cầu ứng viên</h3>
+              <ul>${(job.requirements||[]).map(x=>`<li>${formatJobText(x)}</li>`).join("")}</ul>
+            </div>
+            <div>
+              <h3>Quyền lợi</h3>
+              <ul>${(job.benefits||[]).map(x=>`<li>${formatJobText(x)}</li>`).join("")}</ul>
+            </div>
+          </section>
+
+          <section class="job-v2-section">
+            <h3>Kỹ năng</h3>
+            <div class="tag-row">${(job.skills||[]).map(x=>`<span class="tag">${esc(x)}</span>`).join("")}</div>
+          </section>
+
+          <section class="job-v2-section">
+            <h3>Cách ứng tuyển</h3>
+            <p>${formatJobText(job.applyMethod || "Ứng tuyển trực tiếp trên MoonWork")}</p>
+          </section>
+
+        </main>
+
+        <aside class="job-v2-sidebar">
+          <div class="company-box">
+            <div class="mini-logo">${esc(job.logo)}</div>
+            <h3>${esc(job.company)}</h3>
+            <p>${esc(job.companyDesc || "")}</p>
+          </div>
+
+          <button class="btn btn-primary btn-full" data-apply-job="${job.id}">
+            Ứng tuyển ngay
+          </button>
+
+          <button class="btn btn-soft btn-full">
+            ♡ Lưu việc làm
+          </button>
+        </aside>
+      </div>
+    </div>
+  `;
+
   openModal("job-modal");
   bindDynamicEvents();
 }

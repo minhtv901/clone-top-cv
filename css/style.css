@@ -1420,3 +1420,211 @@ body.modal-open{
 
 .job-text{white-space:pre-line;line-height:1.8;}
 .job-text br{display:block;content:'';margin-bottom:6px;}
+
+
+/* =========================================================
+   JOB DETAIL V2 - UNIQUE LAYOUT
+   Separate dashboard style (not old TopCV layout)
+   ========================================================= */
+
+.job-detail-v2{
+  width:min(1100px,100%);
+}
+
+.job-v2-header{
+  display:flex;
+  align-items:center;
+  gap:18px;
+  padding:24px;
+  background:linear-gradient(135deg,#f7f9ff,#ffffff);
+  border:1px solid var(--line);
+  border-radius:22px;
+}
+
+.job-v2-header .job-logo.big{
+  width:86px;
+  height:86px;
+  border-radius:22px;
+}
+
+.job-v2-header h2{
+  margin:0 0 6px;
+  font-size:28px;
+  letter-spacing:-.6px;
+}
+
+.job-v2-header p{
+  margin:0;
+  color:var(--muted);
+}
+
+.job-v2-badge{
+  margin-left:auto;
+  background:#eef2ff;
+  color:#4f6fe8;
+  padding:7px 12px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:800;
+}
+
+.job-v2-info{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:12px;
+  margin:22px 0;
+}
+
+.job-v2-info-card{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:15px;
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+}
+
+.job-v2-info-card span{
+  font-size:20px;
+}
+
+.job-v2-info-card small{
+  color:var(--muted);
+  font-size:11px;
+}
+
+.job-v2-info-card b{
+  font-size:13px;
+}
+
+.job-v2-layout{
+  display:grid;
+  grid-template-columns:1fr 320px;
+  gap:22px;
+}
+
+.job-v2-main,
+.job-v2-side{
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+
+.job-v2-section{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:22px;
+}
+
+.job-v2-section h3{
+  margin:0 0 14px;
+  font-size:18px;
+}
+
+.job-v2-section p,
+.job-v2-section div,
+.job-v2-section li{
+  white-space:pre-line;
+  color:#475467;
+  font-size:14px;
+  line-height:1.75;
+}
+
+.job-v2-section ul{
+  padding-left:20px;
+}
+
+.job-v2-tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+
+.job-v2-tag{
+  padding:7px 12px;
+  border-radius:999px;
+  background:#eef2ff;
+  color:#4f6fe8;
+  font-size:12px;
+  font-weight:700;
+}
+
+.job-v2-company,
+.job-v2-apply{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:20px;
+}
+
+.job-v2-company h3,
+.job-v2-apply h3{
+  margin:0 0 10px;
+  font-size:16px;
+}
+
+.job-v2-company p,
+.job-v2-apply p{
+  color:var(--muted);
+  font-size:13px;
+  white-space:pre-line;
+}
+
+.apply-method-text{
+  display:block;
+  margin-top:8px;
+  line-height:1.7;
+}
+
+.job-v2-apply .btn{
+  margin-top:15px;
+}
+
+@media(max-width:1000px){
+  .job-v2-info{
+    grid-template-columns:repeat(3,1fr);
+  }
+  .job-v2-layout{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:600px){
+  .job-v2-header{
+    flex-wrap:wrap;
+  }
+
+  .job-v2-badge{
+    margin-left:0;
+  }
+
+  .job-v2-info{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .job-v2-header h2{
+    font-size:22px;
+  }
+}
+
+.job-v2-info div {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.job-v2-info div small {
+    font-size: 12px;
+    color: #707A94;
+}
+
+.job-v2-info div b {
+    display: block;
+    font-size: 14px;
+    color: #20263A;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    line-height: 1.5;
+}
