@@ -187,7 +187,7 @@ function seedEmployerAccount(){
   setUsers(users);
 }
 
-function formatJobText(value){return esc(value||'').replace(/\n/g,'<br>');}\n\nfunction esc(s="") {
+function formatJobText(value){return esc(String(value||'').replace(/\r\n|\r/g,'\n')).replace(/\n/g,'<br>');}\n\nfunction esc(s="") {
   return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 }
 function statusMeta(status) {
